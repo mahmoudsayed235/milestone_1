@@ -1,16 +1,57 @@
-# This is a sample Python script.
+menuPrompt="\n Enter 'a' to add movie, 'l' to see your movies, 'f' to find a movie by title, or 'q' to quit: "
+movies=[]
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+def addMovie():
+    title=input("Enter the movie title : ")
+    director=input("Enter the movie director : ")
+    year=input("Enter the movie release year : ")
+    movies.append(
+        {
+            'title':title,
+            'director':director,
+            'year':year
+        }
+    )
+def showMovies():
+    for movie in movies:
+        printMovie(movie)
+def printMovie(movie):
+    print(f"Title: {movie['title']}, Director: {movie['director']}, and Year: {movie['year']}, ")
+
+def findMovie():
+    searchTitle=input("Enter movie title you;re looking for: ")
+    for  movie in movies:
+        if movie['title']==searchTitle:
+            printMovie(movie)
+            break
+    else:
+        print(f"there is no movie with title {searchTitle}")
+
+userOptions={
+    "a":addMovie,
+    "f":findMovie,
+    "l":showMovies
+}
+def menu():
+    selection=input(menuPrompt)
+    while selection!="q":
+        if selection in userOptions:
+            selectionFun = userOptions[selection]
+            selectionFun()
+
+        else:
+            print("you entered an invalid selection, please try again! ")
+        selection=input(menuPrompt)
+
+    """
+        if selection=="a":
+            addMovie()
+        elif selection=="l":
+            showMovies()
+        elif selection=="f":
+            findMovie()
+        """
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
 
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+menu()
